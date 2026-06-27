@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Matcher</title>
+</head>
+<body>
+
+<h2>AI Resume Matcher</h2>
+
+<input type="file" id="resume"><br><br>
+
+<textarea
+    id="jobDescription"
+    rows="10"
+    cols="60"
+    placeholder="Paste Job Description here..."
+></textarea>
+
+<br><br>
+
+<button onclick="uploadResume()">Analyze Resume</button>
+
+<script>
+
+async function uploadResume() {
+
+    const file = document.getElementById("resume").files[0];
+    const jobDescription = document.getElementById("jobDescription").value;
+
+    if (!file) {
+        alert("Please choose a PDF.");
+        return;
+    }
+
+    if (!jobDescription) {
+        alert("Please enter Job Description.");
+        return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("resume", file);
+    formData.append("jobDescription", jobDescription);
+
+    try {
+
+        const response = await fetch("http://localhost:5000/analyze", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+
+        alert(JSON.stringify(data, null, 2));
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert(err.message);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
