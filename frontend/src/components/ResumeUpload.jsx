@@ -28,7 +28,7 @@ function ResumeUpload() {
     try {
       setLoading(true);
 
-      const response = await fetch("https://ai-resume-matcher-eqd8.onrender.com/analyze", {
+      const response = await fetch("https://ai-resume-matcher-1-7o55.onrender.com/analyze", {
         method: "POST",
         body: formData,
       });
